@@ -1,34 +1,59 @@
 const express = require("express")
-const customer = require("../modals/modal")
-const card = require("../modals/modal1")
+const authorSchema = require("../modals/author")
+const book = require("../modals/book")
+const publisherSchema = require("../modals/publisher")
 
-const createCustomer = async function(req,res){
-    let x = await customer.create(req.body)
+const createAuthor = async function (req, res) {
+    let x = await authorSchema.create(req.body)
     res.send(x)
 }
-const createCard = async function(req,res){
-    let x =  await card.create(req.body)
+const createPublisher = async function (req, res) {
+    let x = await publisherSchema.create(req.body)
     res.send(x)
 }
-const getCustomer = async function(req,res){
-    let x = await customer.find({status:"Active"})
+const createBook = async function (req, res) {
+  if(req.body.author == null){
+    return res.send("Author must be present")
+  }
+  if(req.body.publisher == null){
+    return res.send("Publisher must be present")
+  }
+  //Check if author is valid present or not
+  let x = await authorSchema.findOne({_id:req.body.author})
+  let y = await authorSchema.findOne({_id:req.body.publisher})
+  if(x == null){
+    res.send("Give Proper AuthorName")
+  }
+  if(y == null){
+    res.send("Give Proper Publisher") 
+  }
+} 
+const getBook = async function (req, res) {
+    let x = await book.find().populate('author').populate('publisher')
     res.send(x)
 }
-const getCard = async function(req,res){
-    let x = await card.find()
-    res.send(x)
+////////////////////////////////////////
+
+const updateBook = async function (req, res) {
+  let x = await publisherSchema.find({name:{$in:["Penguin","Martin"]}}).select({_id:1})
+  let ids = x.map(e=> e._id)
+  let y = await book.updateMany({publisher:{$in:ids}},{$set:{isDeleted:true}},{new:true})
+  
+  res.send(ids)
 }
-const deleteCustomer = async function(req,res){
-    let x = await customer.findOneAndUpdate(req.body,{isDeleted:true},{new:true})
-    res.send(x)
+
+
+const updateAuthor = async function (req, res) {
+  let x = await authorSchema.find({rating:{$lt:3.5}}).select({_id:1})
+  let ids = x.map(x=> x._id)
+  let y = await book.updateMany({author:{$in:ids}},{$set:{$inc:{price:10}}},{new:true})
+
+  res.send(y)
 }
-const getAllCustomer = async function(req,res){
-    let x = await customer.find()
-    res.send(x)
-}
-module.exports.createCustomer = createCustomer
-module.exports.createCard = createCard
-module.exports.getCustomer = getCustomer
-module.exports.getCard = getCard
-module.exports.deleteCustomer = deleteCustomer
-module.exports.getAllCustomer = getAllCustomer
+
+module.exports.createAuthor = createAuthor
+module.exports.createPublisher = createPublisher
+module.exports.createBook = createBook
+module.exports.getBook = getBook
+module.exports.updateBook = updateBook
+module.exports.updateAuthor = updateAuthor
