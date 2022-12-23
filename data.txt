@@ -1,12 +1,8 @@
 {
-  "firstName": "Piyush",
-  "lastName" : "Tale",
-  "mobileNumber": "8888855555",
-  "DOB" : "2000-10-24",
-  "emailId" : "Piyush@gmail.com",
-  "address" : "Bhusawal",
-  "customerId" : 1,
-  "status" : "Active"
-  
+  "name": "Piyush",
+  "balance": 100000,
+  "address": "Pune",
+  "age": 22,
+  "gender": "male",
+ "isFreeAppUser":false
 }
-

@@ -4,7 +4,7 @@ const mongoose = require("mongoose")
 const routes = require("./routes/routes")
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://piyushtale:piyushrajutale@cluster0.t7w7ipr.mongodb.net/First")
+mongoose.connect("mongodb+srv://piyushtale:piyushrajutale@cluster0.t7w7ipr.mongodb.net/Middleware")
 .then(console.log("Mongoose Connected"))
 .catch((e)=>console.log(e))
 

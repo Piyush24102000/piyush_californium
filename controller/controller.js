@@ -1,34 +1,24 @@
 const express = require("express")
-const customer = require("../modals/modal")
-const card = require("../modals/modal1")
+const productSchema = require('../modals/productModal')
+const userSchema = require("../modals/userModal")
+const orderSchema = require("../modals/orderModal")
 
-const createCustomer = async function(req,res){
-    let x = await customer.create(req.body)
-    res.send(x)
+const createProduct = async function(req,res){
+   let x = await productSchema.create(req.body)
+   res.send(x)
 }
-const createCard = async function(req,res){
-    let x =  await card.create(req.body)
+
+const createUser = async function(req,res){
+    let x = await userSchema.create(req.body)
     res.send(x)
-}
-const getCustomer = async function(req,res){
-    let x = await customer.find({status:"Active"})
+ }
+
+ 
+const createOrder = async function(req,res){
+    let x = await orderSchema.create(req.body)
     res.send(x)
-}
-const getCard = async function(req,res){
-    let x = await card.find()
-    res.send(x)
-}
-const deleteCustomer = async function(req,res){
-    let x = await customer.findOneAndUpdate(req.body,{isDeleted:true},{new:true})
-    res.send(x)
-}
-const getAllCustomer = async function(req,res){
-    let x = await customer.find()
-    res.send(x)
-}
-module.exports.createCustomer = createCustomer
-module.exports.createCard = createCard
-module.exports.getCustomer = getCustomer
-module.exports.getCard = getCard
-module.exports.deleteCustomer = deleteCustomer
-module.exports.getAllCustomer = getAllCustomer
+ }
+ 
+module.exports.createUser = createUser
+module.exports.createProduct = createProduct
+module.exports.createOrder = createOrder
