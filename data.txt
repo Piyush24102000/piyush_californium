@@ -1,0 +1,9 @@
+{
+  "firstName":"Raju",
+  "lastName":"Tale",
+  "mobile":"9995557773",
+  "emailId":"rktale@gmail.com",
+  "password":"rktale",
+  "gender": "male",
+  "age": 51
+}
